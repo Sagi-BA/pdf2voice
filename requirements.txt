@@ -5,4 +5,5 @@ aiohttp #This is for telegram
 
 PyPDF2 
 gTTS
+langdetect
 # groq
