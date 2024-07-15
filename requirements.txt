@@ -1,0 +1,8 @@
+streamlit 
+python-dotenv
+
+aiohttp #This is for telegram
+
+PyPDF2 
+gTTS
+# groq
