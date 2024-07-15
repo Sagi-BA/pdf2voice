@@ -107,6 +107,9 @@ def main():
 
         st.info("אפליקציה זו משתמשת בזיהוי שפות אוטומטי ותומכת במספר שפות, כולל עברית.")
 
+         # הוספת הערה לגבי מגבלת גודל הקובץ
+        st.warning("שימו לב: ניתן להעלות קבצי PDF בגודל של עד 2 מגה-בייט.")
+
         uploaded_file = st.file_uploader("יש לבחור קובץ PDF", type="pdf")
 
         if uploaded_file is not None:
