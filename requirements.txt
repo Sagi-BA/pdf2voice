@@ -2,7 +2,7 @@ streamlit
 python-dotenv
 
 aiohttp #This is for telegram
-
+requests
 PyPDF2 
 gTTS
 langdetect

@@ -7,6 +7,7 @@ import base64
 from langdetect import detect
 import uuid
 import time
+import requests
 
 from utils.init import initialize
 from utils.counter import initialize_user_count, increment_user_count, decrement_user_count, get_user_count
@@ -29,14 +30,32 @@ def detect_language(text):
     except:
         return 'en'  # default to English if detection fails
 
-def text_to_speech(text, language):
+def text_to_speech(text, language, max_retries=5, delay=2):
     if language == 'he':
         language = 'iw'  # gTTS uses 'iw' for Hebrew
     unique_filename = f"{uuid.uuid4()}.mp3"
     file_path = os.path.join(UPLOAD_DIR, unique_filename)
-    tts = gTTS(text=text, lang=language, slow=False)
-    tts.save(file_path)
-    return file_path
+
+    for attempt in range(max_retries):
+        try:
+            tts = gTTS(text=text, lang=language, slow=False)
+            tts.save(file_path)
+            return file_path
+        except requests.exceptions.RequestException as e:
+            if e.response.status_code == 429:
+                # If we hit the rate limit, wait and retry
+                print(f"Rate limit hit. Retrying in {delay} seconds...")
+                time.sleep(delay)
+                delay *= 2  # Exponential backoff
+            else:
+                # For other types of request exceptions, re-raise the exception
+                raise
+        except Exception as e:
+            # Handle other exceptions (like network errors)
+            print(f"An error occurred: {e}")
+            time.sleep(delay)
+            delay *= 2  # Exponential backoff
+    raise Exception("Failed to convert text to speech after multiple retries")
 
 def get_binary_file_downloader_html(bin_file, file_label='קובץ'):
     with open(bin_file, 'rb') as f:
