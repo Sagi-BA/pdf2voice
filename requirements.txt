@@ -6,5 +6,5 @@ requests
 PyPDF2 
 gTTS
 langdetect
-logging
+# logging
 # groq
