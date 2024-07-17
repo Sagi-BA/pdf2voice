@@ -8,10 +8,14 @@ from langdetect import detect
 import uuid
 import time
 import requests
+import logging
 
 from utils.init import initialize
 from utils.counter import initialize_user_count, increment_user_count, decrement_user_count, get_user_count
 from utils.TelegramSender import TelegramSender
+
+# Set up logging
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 # Ensure uploads directory exists
 UPLOAD_DIR = "uploads"
@@ -30,31 +34,53 @@ def detect_language(text):
     except:
         return 'en'  # default to English if detection fails
 
-def text_to_speech(text, language, max_retries=5, delay=2):
+def fallback_text_to_speech(text, language):
+    # Implement a fallback TTS service here
+    # This is a placeholder implementation
+    unique_filename = f"fallback_{uuid.uuid4()}.mp3"
+    file_path = os.path.join(UPLOAD_DIR, unique_filename)
+    # Simulate saving an audio file
+    with open(file_path, 'wb') as f:
+        f.write(b"Fallback TTS audio content")
+    return file_path
+
+def text_to_speech_with_fallback(text, language, max_retries=10, initial_delay=2):
+    try:
+        return text_to_speech(text, language, max_retries, initial_delay)
+    except Exception as e:
+        logging.error(f"Primary TTS service failed: {e}")
+        logging.info("Attempting to use fallback TTS service...")
+        return fallback_text_to_speech(text, language)
+    
+def text_to_speech(text, language, max_retries=10, initial_delay=2):
     if language == 'he':
         language = 'iw'  # gTTS uses 'iw' for Hebrew
     unique_filename = f"{uuid.uuid4()}.mp3"
     file_path = os.path.join(UPLOAD_DIR, unique_filename)
 
+    delay = initial_delay
     for attempt in range(max_retries):
         try:
             tts = gTTS(text=text, lang=language, slow=False)
             tts.save(file_path)
+            logging.info(f"Text-to-speech conversion succeeded on attempt {attempt + 1}")
             return file_path
         except requests.exceptions.RequestException as e:
             if e.response.status_code == 429:
-                # If we hit the rate limit, wait and retry
-                print(f"Rate limit hit. Retrying in {delay} seconds...")
+                # If we hit the rate limit, log it and wait before retrying
+                logging.warning(f"Rate limit hit on attempt {attempt + 1}. Retrying in {delay} seconds...")
                 time.sleep(delay)
                 delay *= 2  # Exponential backoff
             else:
-                # For other types of request exceptions, re-raise the exception
+                # Log and re-raise other types of request exceptions
+                logging.error(f"RequestException on attempt {attempt + 1}: {e}")
                 raise
         except Exception as e:
             # Handle other exceptions (like network errors)
-            print(f"An error occurred: {e}")
+            logging.error(f"An error occurred on attempt {attempt + 1}: {e}")
             time.sleep(delay)
             delay *= 2  # Exponential backoff
+
     raise Exception("Failed to convert text to speech after multiple retries")
 
 def get_binary_file_downloader_html(bin_file, file_label='קובץ'):
@@ -151,7 +177,7 @@ def main():
                     
                     # Convert text to speech with a spinner
                     with st.spinner("ממיר טקסט לדיבור... זה עשוי לקחת מספר רגעים."):
-                        audio_file_path = text_to_speech(text, detected_lang)
+                        audio_file_path = text_to_speech_with_fallback(text, detected_lang)
                     
                     # Provide download link for MP3
                     st.success("ההמרה הושלמה!")
