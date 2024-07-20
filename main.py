@@ -143,7 +143,7 @@ def main():
                     
                     # Display extracted text with custom styling
                     st.markdown("<p class='extracted-text-header'>טקסט שחולץ</p>", unsafe_allow_html=True)
-                    st.text_area("", text, height=300, key="extracted_text")
+                    st.text_area("extracttext", text, height=300, key="extracted_text")
                     
                     # Detect language
                     detected_lang = detect_language(text)

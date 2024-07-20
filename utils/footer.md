@@ -10,4 +10,4 @@
 [![Email Me](https://img.shields.io/badge/email_me-white?style=for-the-badge&logo=gmail&logoColor=EA4335)](mailto:sagi.baron76@gmail.com) |
 [![Buy Me A Beer](https://img.shields.io/badge/Buy_Me_A_Beer-white?style=for-the-badge&logo=buymeacoffee&logoColor=FFDD00)](https://buymeacoffee.com/sagibar)
 
-#### 🖖 עודכן על ידי שגיא בר און ב 17/7/2024
+#### 🖖 עודכן על ידי שגיא בר און ב 20/7/2024
