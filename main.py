@@ -43,6 +43,7 @@ def async_lru_cache(maxsize=128, typed=False):
 
 @async_lru_cache(maxsize=100)
 async def cached_text_to_speech(text, language):
+    print(f'cached_text_to_speech: text={text}, language={language}')
     progress_bar = st.progress(0)
     status_text = st.empty()
 

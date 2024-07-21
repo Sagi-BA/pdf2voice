@@ -11,7 +11,7 @@ class Pyttsx3TextToSpeechConverter:
         self.engine.setProperty('rate', 150)
         self.engine.setProperty('volume', 1.0)
         voices = self.engine.getProperty('voices')
-        # self.engine.setProperty('voice', voices[1].id)
+        self.engine.setProperty('voice', voices[1].id)
         
         self.UPLOAD_DIR = upload_dir
         os.makedirs(self.UPLOAD_DIR, exist_ok=True)
