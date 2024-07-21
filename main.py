@@ -141,14 +141,16 @@ def install_dependencies():
     except subprocess.CalledProcessError as e:
         st.error(f"An error occurred: {e}")
 
-st.title("Install Dependencies")
-
-if st.button("Install libespeak1"):
-    install_dependencies()
-
 async def main():
     try:
         header_content, image_path, footer_content = initialize()
+
+        st.title("Install Dependencies")
+
+        if st.button("Install libespeak1"):
+            install_dependencies()
+
+
         
         st.markdown(f"<h2 style='text-align: center; color: #FF6347;'>{header_content}</h2>", unsafe_allow_html=True)
         if image_path:
