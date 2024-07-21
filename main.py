@@ -44,30 +44,31 @@ def async_lru_cache(maxsize=128, typed=False):
 @async_lru_cache(maxsize=100)
 async def cached_text_to_speech(text, language):
     print(f'cached_text_to_speech: text={text}, language={language}')
-    progress_bar = st.progress(0)
-    status_text = st.empty()
+    return "speech"
+    # progress_bar = st.progress(0)
+    # status_text = st.empty()
 
-    async def update_status(status, progress):
-        status_text.text(status)
-        progress_bar.progress(progress)
+    # async def update_status(status, progress):
+    #     status_text.text(status)
+    #     progress_bar.progress(progress)
 
-    if language == 'he' or language == 'iw':
-        print("text_to_speech: language=hebrew")
-        language = 'iw'  # gTTS uses 'iw' for Hebrew
-        converter = gTTSTextToSpeechConverter()   
-    else:
-        print(f"text_to_speech: language={language}")
-        if not language.startswith('en'):
-            text=clean_text(text)
+    # if language == 'he' or language == 'iw':
+    #     print("text_to_speech: language=hebrew")
+    #     language = 'iw'  # gTTS uses 'iw' for Hebrew
+    #     converter = gTTSTextToSpeechConverter()   
+    # else:
+    #     print(f"text_to_speech: language={language}")
+    #     if not language.startswith('en'):
+    #         text=clean_text(text)
         
-        converter = Pyttsx3TextToSpeechConverter()
+    #     converter = Pyttsx3TextToSpeechConverter()
 
-    result = await converter.text_to_speech(text, language, status_callback=update_status)
+    # result = await converter.text_to_speech(text, language, status_callback=update_status)
     
-    progress_bar.empty()
-    status_text.empty()
+    # progress_bar.empty()
+    # status_text.empty()
     
-    return result
+    # return result
 
 async def extract_text_from_pdf(file):
     text = ""
