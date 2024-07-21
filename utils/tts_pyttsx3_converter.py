@@ -56,6 +56,19 @@ class Pyttsx3TextToSpeechConverter:
         progress_bar.empty()
 
         return file_path, total_time
+    
+    async def print_available_voices(self):
+        engine = pyttsx3.init()
+        voices = engine.getProperty('voices')
+
+        print("Available voices:")
+        for i, voice in enumerate(voices):
+            print(f"{i+1}. ID: {voice.id}")
+            print(f"   Name: {voice.name}")
+            print(f"   Languages: {voice.languages}")
+            print(f"   Gender: {voice.gender}")
+            print(f"   Age: {voice.age}")
+            print("--------------------")
 
 # Usage example (can be commented out or removed if you're importing this class elsewhere)
 if __name__ == "__main__":
