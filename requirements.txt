@@ -1,10 +1,9 @@
 streamlit 
 python-dotenv
-
+PyPDF2
+langdetect
+pyttsx3 #https://pypi.org/project/pyttsx3/
+gTTS # According to Google TTS documentation, the Speech Synthesis Limit is 5000 bytes per request - https://cloud.google.com/text-to-speech/quotas.
 aiohttp #This is for telegram
 requests
-PyPDF2 
-gTTS
-langdetect
-# logging
-# groq
+asyncio

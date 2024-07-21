@@ -204,6 +204,27 @@ img {
   margin-bottom: 10px;
   text-align: center;
 }
+.download-button {
+  width: 100%;
+  margin: 0.5rem 0;
+  background-color: #ff0000;
+  color: white !important;
+  font-weight: bold;
+  border: 2px solid #ff0000;
+  border-radius: 10px;
+  padding: 12px 24px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 24px;
+  cursor: pointer;
+  transition: background-color 0.3s, border-color 0.3s;
+}
+.download-button:hover {
+  background-color: #cc0000;
+  border-color: #cc0000;
+  color: white !important;
+}
 
 @keyframes bounce {
   0%,
@@ -234,6 +255,10 @@ img {
 
   .word-item {
     padding: 10px;
+  }
+  .download-button {
+    padding: 10px 20px;
+    font-size: 16px;
   }
 }
 
@@ -270,5 +295,9 @@ img {
   }
   .stNumberInput > div > div > label {
     font-size: 54px;
+  }
+  .download-button {
+    padding: 8px 16px;
+    font-size: 14px;
   }
 }

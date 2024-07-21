@@ -40,6 +40,6 @@ def initialize():
             footer_content = footer_file.read()
     except FileNotFoundError:
         st.error("footer.md file not found in utils folder.")
-        footer_content = ""  # Provide a default empty footer
-
+        footer_content = ""  # Provide a default empty footer    
+    
     return title, image_path, footer_content

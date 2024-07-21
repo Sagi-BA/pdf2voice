@@ -5,9 +5,9 @@
 [![AI Tips & Tricks Channel](https://img.shields.io/badge/AI_TIPS_&_TRICKS_CHANNEL-white?style=for-the-badge&logo=whatsapp&logoColor=25D366)](https://whatsapp.com/channel/0029Vaj33VkEawds11JP9o1c) |
 [![AI Discussion Group](https://img.shields.io/badge/AI_DISCUSSION_GROUP-white?style=for-the-badge&logo=whatsapp&logoColor=25D366)](https://whatsapp.com/channel/0029Vaj33VkEawds11JP9o1c) |
 [![Subscribe](https://img.shields.io/badge/Subscribe_to_my_YouTube_channel-white?style=for-the-badge&logo=youtube&logoColor=FF0000)](https://www.youtube.com/@SagiBaron) |
-[![Request Tutorial](https://img.shields.io/badge/Request_How_To_Tutorial_Video-white?style=for-the-badge&logo=youtube&logoColor=FF0000)](https://www.youtube.com/watch?v=xj8COkST--8) |
+[![Watch Tutorial](https://img.shields.io/badge/Watch_Tutorial_Video-white?style=for-the-badge&logo=youtube&logoColor=FF0000)](https://www.youtube.com/watch?v=xj8COkST--8) |
 [![Ask New AI Video](https://img.shields.io/badge/Ask_For_New_AI_Video-white?style=for-the-badge&logo=GoogleForms&logoColor=7248B9)](https://forms.gle/b5hw4Rfe6ZtXuiQV6) |
 [![Email Me](https://img.shields.io/badge/email_me-white?style=for-the-badge&logo=gmail&logoColor=EA4335)](mailto:sagi.baron76@gmail.com) |
 [![Buy Me A Beer](https://img.shields.io/badge/Buy_Me_A_Beer-white?style=for-the-badge&logo=buymeacoffee&logoColor=FFDD00)](https://buymeacoffee.com/sagibar)
 
-#### 🖖 עודכן על ידי שגיא בר און ב 20/7/2024
+#### 🖖 עודכן על ידי שגיא בר און ב 21/7/2024
