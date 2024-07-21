@@ -43,7 +43,7 @@ def async_lru_cache(maxsize=128, typed=False):
 
 @async_lru_cache(maxsize=100)
 async def cached_text_to_speech(text, language):
-    print(f'cached_text_to_speech: text={text}, language={language}')
+    print(f"text_to_speech: language={language}")
     progress_bar = st.progress(0)
     status_text = st.empty()
 
@@ -51,18 +51,26 @@ async def cached_text_to_speech(text, language):
         status_text.text(status)
         progress_bar.progress(progress)
 
-    if language == 'he' or language == 'iw':
-        print("text_to_speech: language=hebrew")
+    if language == 'he' or language == 'iw':        
         language = 'iw'  # gTTS uses 'iw' for Hebrew
-        converter = gTTSTextToSpeechConverter()   
+        converter = gTTSTextToSpeechConverter()  
+        result = await converter.text_to_speech(text, language, status_callback=update_status)
     else:
-        print(f"text_to_speech: language={language}")
-        if not language.startswith('en'):
-            text=clean_text(text)
-        
-        converter = Pyttsx3TextToSpeechConverter()
+        raise ValueError("רק קובצי PDF עבריים נתמכים. זוהתה שפה לא נתמכת.")
 
-    result = await converter.text_to_speech(text, language, status_callback=update_status)
+
+    # if language == 'he' or language == 'iw':
+    #     print("text_to_speech: language=hebrew")
+    #     language = 'iw'  # gTTS uses 'iw' for Hebrew
+    #     converter = gTTSTextToSpeechConverter()   
+    # else:
+    #     print(f"text_to_speech: language={language}")
+    #     if not language.startswith('en'):
+    #         text=clean_text(text)
+        
+    #     converter = Pyttsx3TextToSpeechConverter()
+
+    
     
     progress_bar.empty()
     status_text.empty()
@@ -103,18 +111,20 @@ async def process_file(file, original_filename):
     detected_lang = detect_language(text)
     st.info(f"שפה שזוהתה: {detected_lang}")
     
-    with st.spinner("ממיר טקסט לדיבור... זה עשוי לקחת מספר רגעים."):
-        audio_file_path, conversion_time = await cached_text_to_speech(text, detected_lang)
-        formatted_time = format_conversion_time(conversion_time)
-        st.success(f"ההמרה הושלמה ב-{formatted_time}")
-    
     try:
+        with st.spinner("ממיר טקסט לדיבור... זה עשוי לקחת מספר רגעים."):
+            audio_file_path, conversion_time = await cached_text_to_speech(text, detected_lang)
+            formatted_time = format_conversion_time(conversion_time)
+            st.success(f"ההמרה הושלמה ב-{formatted_time}")
+        
         with open(audio_file_path, 'rb') as audio_file:
             st.audio(audio_file.read(), format='audio/mp3')
         
         st.markdown(get_binary_file_downloader_html(audio_file_path, 'אודיו'), unsafe_allow_html=True)
         
         await send_telegram_message_and_file(f"PDF2VOICE: {original_filename}", audio_file_path)
+    except ValueError as e:
+        st.error(str(e))
     finally:
         # Delete the file after sending and displaying
         if os.path.exists(audio_file_path):
@@ -136,8 +146,8 @@ async def main():
         if image_path:
             st.image(image_path, use_column_width=True)
 
-        st.info("אפליקציה זו משתמשת בזיהוי שפות אוטומטי ותומכת במספר שפות, כולל עברית.")
-        st.warning("שימו לב: ניתן להעלות קבצי PDF בגודל של עד 2 מגה-בייט.")
+        # st.info("אפליקציה זו משתמשת בזיהוי שפות אוטומטי ותומכת במספר שפות, כולל עברית.")
+        st.warning("שימו לב: ניתן להעלות קבצי PDF בעברית בלבד ובגודל של עד 2 מגה-בייט!")
 
         uploaded_file = st.file_uploader("יש לבחור קובץ PDF", type="pdf")
 

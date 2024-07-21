@@ -3,7 +3,7 @@ from streamlit.components.v1 import html
 import os
 
 def initialize():
-    st.set_page_config(layout="wide", page_title="אפליקציה ההופכת קובץ PDF לקול ומחלצת גם את הטקסט", page_icon="🎙️")
+    st.set_page_config(layout="wide", page_title="אפליקציה ההופכת קובץ PDF בעברית לקול ומחלצת גם את הטקסט", page_icon="🎙️")
     
     # Load external CSS
     css_file_path = os.path.join('utils', 'styles.css')
