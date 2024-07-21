@@ -127,7 +127,6 @@ async def send_telegram_message_and_file(message, file_path):
     finally:
         await sender.close_session()
 
-
 async def main():
     try:
         header_content, image_path, footer_content = initialize()
