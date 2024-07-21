@@ -127,30 +127,10 @@ async def send_telegram_message_and_file(message, file_path):
     finally:
         await sender.close_session()
 
-import subprocess
-import sys
-
-
-def install_dependencies():
-    try:
-        # Run the command to install libespeak1
-        subprocess.check_call([sys.executable, '-m', 'pip', 'install', 'pyttsx3'])
-        subprocess.check_call(['sudo', 'apt-get', 'update'])
-        subprocess.check_call(['sudo', 'apt-get', 'install', '-y', 'libespeak1'])
-        st.success("Dependencies installed successfully.")
-    except subprocess.CalledProcessError as e:
-        st.error(f"An error occurred: {e}")
 
 async def main():
     try:
         header_content, image_path, footer_content = initialize()
-
-        st.title("Install Dependencies")
-
-        if st.button("Install libespeak1"):
-            install_dependencies()
-
-
         
         st.markdown(f"<h2 style='text-align: center; color: #FF6347;'>{header_content}</h2>", unsafe_allow_html=True)
         if image_path:
